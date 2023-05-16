@@ -34,7 +34,7 @@ public class Laptop {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_student_studentId")
-	@JsonIgnore
+	//@JsonIgnore
 	private Student student;
 	
 }

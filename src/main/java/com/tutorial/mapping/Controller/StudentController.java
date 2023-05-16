@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tutorial.mapping.dao.LaptopDao;
+import com.tutorial.mapping.dao.StudentDao;
 import com.tutorial.mapping.model.Book;
 import com.tutorial.mapping.model.Laptop;
 import com.tutorial.mapping.model.Student;
@@ -27,20 +29,13 @@ public class StudentController {
 	
 	
 	@PostMapping("/add")
-	public ResponseEntity<String>addStrudent(@RequestBody Student student){
+	public ResponseEntity<String>addStrudent(@RequestBody Student student){return studentService.addStudent(student);}
 		
-		
-		return studentService.addStudent(student);
-	}
-	
 	@GetMapping("/get")
-	public ResponseEntity<List<Student>>getAllStudentAgeAbove(@RequestParam("ageabove") String age){
+	public ResponseEntity<List<StudentDao>>getAllStudentAgeAbove(@RequestParam("ageabove") String age){
 		
 		
 		return studentService.getAllStudentAgeAbove(age);
-		
-		
-		
 	}
 	
 	@PutMapping("/update/id/{id}")
@@ -53,21 +48,14 @@ public class StudentController {
 	
 	@GetMapping("/get/laptop/id/{id}")
 	
-	public ResponseEntity<Laptop>getTheLaptopDetailsForStudent(@PathVariable Long id){
+	public ResponseEntity<LaptopDao>getTheLaptopDetailsForStudent(@PathVariable Long id){
+		return studentService.getTheLaptopDetailsForStudent(id);}
 		
-		
-		return studentService.getTheLaptopDetailsForStudent(id);
-		
-	}
 	
 	@GetMapping ("see/allBooks")
 	
-	public ResponseEntity<List<Book>>seeAllBooks(){
-		
-		
-		return studentService.seeAllBooks();
-	}
-	
+	public ResponseEntity<List<Book>>seeAllBooks(){return studentService.seeAllBooks();}
+
 	@PostMapping("book/studentid/{id}/added")
 	
 	public ResponseEntity<String>studentSelectBooksById(@PathVariable Long id, @RequestParam("bookids") List<Long>allIds){

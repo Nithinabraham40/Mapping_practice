@@ -37,11 +37,11 @@ public class Student {
 
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_address_addressId")
-	@JsonIgnore
+	
 	private Address address;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "student")
-	
+	@JsonIgnore
 	private List<Book>allBooks;
 
 }

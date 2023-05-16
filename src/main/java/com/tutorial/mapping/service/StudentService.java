@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.tutorial.mapping.dao.LaptopDao;
+import com.tutorial.mapping.dao.StudentDao;
 import com.tutorial.mapping.model.Address;
 import com.tutorial.mapping.model.Book;
 import com.tutorial.mapping.model.Course;
@@ -54,16 +56,29 @@ public class StudentService {
 	
 	
 
-	public ResponseEntity<List<Student>> getAllStudentAgeAbove(String age) {
+	public ResponseEntity<List<StudentDao>> getAllStudentAgeAbove(String age) {
 		
 		
 		List<Student>allstudent= studentRepo.getAllStudentAgeAbove(age);
+		List<StudentDao>allStudentDao=new ArrayList<>();
 		if(allstudent==null) {
 			
-			return new ResponseEntity<List<Student>>(allstudent,HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<StudentDao>>(allStudentDao,HttpStatus.NO_CONTENT);
+		}
+		for(Student student:allstudent) {
+			
+			StudentDao studentDao=new StudentDao();
+			studentDao.setName(student.getName());
+			studentDao.setBranch(student.getBranch());
+			studentDao.setDepartment(student.getDepartment());
+			studentDao.setPhoneNumber(student.getPhoneNumber());
+			studentDao.setAge(student.getAge());
+			allStudentDao.add(studentDao);
+			
 		}
 		
-		return new ResponseEntity<List<Student>>(allstudent,HttpStatus.FOUND);
+		
+		return new ResponseEntity<List<StudentDao>>(allStudentDao,HttpStatus.FOUND);
 	}
 	
 	
@@ -88,17 +103,20 @@ public class StudentService {
 	
 	
 
-	public ResponseEntity<Laptop> getTheLaptopDetailsForStudent(Long id) {
+	public ResponseEntity<LaptopDao> getTheLaptopDetailsForStudent(Long id) {
 		
-		
+		LaptopDao laptopDao=new LaptopDao();
 		Laptop laptop= laptopRepo.getTheLaptopDetailsForStudent(id);
 		
 		if(laptop==null) {
 			
-			return new ResponseEntity<Laptop>(laptop,HttpStatus.NO_CONTENT);
+			return new ResponseEntity<LaptopDao>(laptopDao,HttpStatus.NO_CONTENT);
 		}
 		
-		return new ResponseEntity<Laptop>(laptop,HttpStatus.OK);
+		laptopDao.setLaptopBrand(laptop.getLaptopBrand());
+		laptopDao.setLaptopName(laptop.getLaptopName());
+		laptopDao.setLaptopPrice(laptop.getLaptopPrice());
+		return new ResponseEntity<LaptopDao>(laptopDao,HttpStatus.OK);
 	}
 	
 	

@@ -27,15 +27,7 @@ public class BookController {
 	public ResponseEntity<String>addBookOnly(@RequestBody BookDao bookDao){
 		
 		
-		return bookService.addBookOnly(bookDao);}
-	
-	
-		
-		
-		
-	
-	
-	
+		return bookService.addBookOnly(bookDao);}	
 	
 	@GetMapping("get")
 	
